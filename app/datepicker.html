@@ -1,0 +1,19 @@
+<div class="c-field c-calendar c-calendar--single">
+  <div class="c-calendar__wrapper">
+    <label for="calendar-permanent" class="c-calendar__label">Calendar label</label>
+    <ngb-datepicker id="calendar-permanent" class="c-calendar--permanent"
+          name="dp" [(ngModel)]="model" ngbDatepicker [dayTemplate]="customDay"  #d="ngbDatepicker" (dateSelect)="model = $event.next"></ngb-datepicker>
+  </div>
+</div>
+
+<ng-template #customDay let-date let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+  <span class="c-calendar__day" 
+  [class.selected]="selected" 
+  [class.today]="isToday(date)"
+  [class.focused]="focused"
+  [class.greyed]="date.month !== currentMonth"
+  [class.available]="isAvailable(date)" 
+  [class.unavailable]="isUnavailable(date)">
+    {{ date.day }}
+  </span>
+</ng-template>

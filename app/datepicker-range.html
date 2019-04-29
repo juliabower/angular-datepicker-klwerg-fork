@@ -1,0 +1,67 @@
+<div class="c-field c-calendar c-calendar--range">
+  <div class="c-calendar__inputs o-row">
+    <div class="c-calendar__wrapper col-sm-6">
+      <label for="calendar-range-start" class="c-calendar__label">Start date</label> 
+      <div class="c-calendar__label">DD/MM/YYYY</div>
+      <input id="calendar-range-start" class="c-field__input c-calendar__input"
+            name="dp" [ngModel]="fromDate" ngbDatepicker [dayTemplate]="customDay" [footerTemplate]="footerTemplate" #dp="ngbDatepicker" [displayMonths]="2" (dateSelect)="onDateSelection($event)" autoClose="outside">
+      <button class="c-btn c-btn--calendar" (click)="dp.open()" type="button">
+        <i class="u-icon u-icon--size-20px u-icon--calendar"><span class="sr-only">calendar</span></i>
+      </button>
+    </div>
+    <div class="c-calendar__wrapper col-sm-6">
+      <label for="calendar-range-end" class="c-calendar__label">End date</label> 
+      <div class="c-calendar__label">DD/MM/YYYY</div>
+      <input id="calendar-range-end" class="c-field__input c-calendar__input"
+            name="dpr" [ngModel]="toDate" ngbDatepicker [dayTemplate]="customDay" #dpr="ngbDatepicker" [displayMonths]="2" (dateSelect)="onDateSelection($event)" autoClose="outside">
+      <button class="c-btn c-btn--calendar" (click)="dpr.open()" type="button">
+        <i class="u-icon u-icon--size-20px u-icon--calendar"><span class="sr-only">calendar</span></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #customDay let-date let-focused="focused" let-currentMonth="currentMonth">
+  <span class="c-calendar__day"
+        [class.focused]="focused"
+        [class.selected]="isRange(date)"
+        [class.today]="isToday(date)"
+        [class.range]="isHovered(date) || isInside(date)"
+        [class.greyed]="date.month !== currentMonth"
+        [class.start-range]="isStartRange(date)"
+        [class.end-range]="isEndRange(date)"
+        [class.end-range-focused]="isHoveredEndRange(date)"
+        (mouseenter)="hoveredDate = date"
+        (mouseleave)="hoveredDate = null">
+    {{ date.day }}
+  </span>
+</ng-template>
+
+<ng-template #footerTemplate>
+  <div class="c-calendar__footer--range">
+    <div class="c-calendar__footer-item">
+      <span class="c-calendar__footer-key today"></span>
+      <span class="c-calendar__footer-value">Today</span>
+    </div>
+    <div class="c-calendar__footer-item">
+      <span class="c-calendar__footer-key selected"></span>
+      <span class="c-calendar__footer-value">Selected</span>
+    </div>
+    <div class="c-calendar__footer-item">
+      <span class="c-calendar__footer-key option-blue"></span>
+      <span class="c-calendar__footer-value">Option 1</span>
+    </div>
+    <div class="c-calendar__footer-item">
+      <span class="c-calendar__footer-key option-green"></span>
+      <span class="c-calendar__footer-value">Option 2</span>
+    </div>
+    <div class="c-calendar__footer-item">
+      <span class="c-calendar__footer-key option-yellow"></span>
+      <span class="c-calendar__footer-value">Option 3</span>
+    </div>
+    <div class="c-calendar__footer-item">
+      <span class="c-calendar__footer-key option-grey"></span>
+      <span class="c-calendar__footer-value">Option 4</span>
+    </div>
+  </div>
+</ng-template>
